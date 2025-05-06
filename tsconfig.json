@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*", "example/parallel-example.ts", "example/query-status-example.ts", "example/background-fetching-example.ts", "example/paginated-example.ts"],
+  "exclude": ["node_modules"]
+} 
