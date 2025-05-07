@@ -8,24 +8,28 @@ export class FocusManager {
   }
 
   private setupVisibilityListener() {
-    if (typeof window !== 'undefined' && window.addEventListener) {
+    if (typeof window !== "undefined" && window.addEventListener) {
       this.visibilityHandler = () => {
-        const isVisible = document.visibilityState === 'visible';
+        const isVisible = document.visibilityState === "visible";
         this.setFocused(isVisible);
       };
 
-      window.addEventListener('visibilitychange', this.visibilityHandler, false);
+      window.addEventListener(
+        "visibilitychange",
+        this.visibilityHandler,
+        false,
+      );
     }
   }
 
   public setFocused(focused: boolean | undefined) {
     if (focused === undefined) {
-      this.focused = document.visibilityState === 'visible';
+      this.focused = document.visibilityState === "visible";
     } else {
       this.focused = focused;
     }
 
-    this.listeners.forEach(listener => listener(this.focused));
+    this.listeners.forEach((listener) => listener(this.focused));
   }
 
   public isFocused(): boolean {
@@ -40,9 +44,9 @@ export class FocusManager {
   }
 
   public cleanup() {
-    if (this.visibilityHandler && typeof window !== 'undefined') {
-      window.removeEventListener('visibilitychange', this.visibilityHandler);
+    if (this.visibilityHandler && typeof window !== "undefined") {
+      window.removeEventListener("visibilitychange", this.visibilityHandler);
     }
     this.listeners.clear();
   }
-} 
+}

@@ -1,5 +1,5 @@
-import { QueryClient } from './QueryClient';
-import { QueryOptions, QueryState } from './types';
+import { QueryClient } from "./QueryClient";
+import { QueryOptions, QueryState } from "./types";
 
 export class QueryObserver<TData = unknown> {
   private queryClient: QueryClient;
@@ -13,12 +13,12 @@ export class QueryObserver<TData = unknown> {
     this.state = {
       data: options.initialData,
       error: null,
-      status: options.initialData ? 'success' : 'idle',
+      status: options.initialData ? "success" : "idle",
       isFetching: false,
-      fetchStatus: 'idle',
+      fetchStatus: "idle",
       isPaused: false,
       lastUpdated: options.initialData ? Date.now() : 0,
-      isPlaceholderData: false
+      isPlaceholderData: false,
     };
   }
 
@@ -28,7 +28,7 @@ export class QueryObserver<TData = unknown> {
   }
 
   private notifyListeners(): void {
-    this.listeners.forEach(listener => listener(this.state));
+    this.listeners.forEach((listener) => listener(this.state));
   }
 
   async fetch(): Promise<TData> {
@@ -37,7 +37,7 @@ export class QueryObserver<TData = unknown> {
         this.state = {
           ...this.state,
           data: this.options.placeholderData,
-          isPlaceholderData: true
+          isPlaceholderData: true,
         };
         this.notifyListeners();
       }
@@ -46,11 +46,11 @@ export class QueryObserver<TData = unknown> {
       this.state = {
         ...this.state,
         data,
-        status: 'success',
+        status: "success",
         lastUpdated: Date.now(),
         isPlaceholderData: false,
-        fetchStatus: 'idle',
-        isPaused: false
+        fetchStatus: "idle",
+        isPaused: false,
       };
       this.notifyListeners();
       return data;
@@ -58,10 +58,13 @@ export class QueryObserver<TData = unknown> {
       this.state = {
         ...this.state,
         error: error as Error,
-        status: 'error',
+        status: "error",
         isPlaceholderData: false,
-        fetchStatus: error instanceof Error && error.message.includes('pausada') ? 'paused' : 'idle',
-        isPaused: error instanceof Error && error.message.includes('pausada')
+        fetchStatus:
+          error instanceof Error && error.message.includes("pausada")
+            ? "paused"
+            : "idle",
+        isPaused: error instanceof Error && error.message.includes("pausada"),
       };
       this.notifyListeners();
       throw error;
@@ -75,7 +78,7 @@ export class QueryObserver<TData = unknown> {
 
 export function useQuery<TData = unknown>(
   queryClient: QueryClient,
-  options: QueryOptions<TData>
+  options: QueryOptions<TData>,
 ): QueryObserver<TData> {
   return new QueryObserver(queryClient, options);
-} 
+}

@@ -3,14 +3,14 @@ export class NetworkManager {
   private listeners: Set<(online: boolean) => void> = new Set();
 
   constructor() {
-    this.online = typeof navigator !== 'undefined' ? navigator.onLine : true;
+    this.online = typeof navigator !== "undefined" ? navigator.onLine : true;
     this.setupListeners();
   }
 
   private setupListeners(): void {
-    if (typeof window !== 'undefined') {
-      window.addEventListener('online', () => this.setOnline(true));
-      window.addEventListener('offline', () => this.setOnline(false));
+    if (typeof window !== "undefined") {
+      window.addEventListener("online", () => this.setOnline(true));
+      window.addEventListener("offline", () => this.setOnline(false));
     }
   }
 
@@ -20,7 +20,7 @@ export class NetworkManager {
   }
 
   private notifyListeners(): void {
-    this.listeners.forEach(listener => listener(this.online));
+    this.listeners.forEach((listener) => listener(this.online));
   }
 
   isOnline(): boolean {
@@ -39,4 +39,4 @@ export class NetworkManager {
   mockOnline(): void {
     this.setOnline(true);
   }
-} 
+}

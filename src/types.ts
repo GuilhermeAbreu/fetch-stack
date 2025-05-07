@@ -1,10 +1,10 @@
 export type QueryKey = string | number | Array<string | number>;
 
-export type NetworkMode = 'online' | 'offline';
+export type NetworkMode = "online" | "offline";
 
-export type QueryStatus = 'idle' | 'loading' | 'success' | 'error';
+export type QueryStatus = "idle" | "loading" | "success" | "error";
 
-export type FetchStatus = 'fetching' | 'paused' | 'idle';
+export type FetchStatus = "fetching" | "paused" | "idle";
 
 export interface QueryFunctionContext {
   signal?: AbortSignal;
@@ -22,7 +22,7 @@ export interface QueryOptions<TData> {
 export interface QueryState<TData> {
   data: TData | undefined;
   error: Error | null;
-  status: 'idle' | 'loading' | 'success' | 'error';
+  status: "idle" | "loading" | "success" | "error";
   isFetching: boolean;
   fetchStatus: FetchStatus;
   isPaused: boolean;
@@ -38,7 +38,8 @@ export interface PaginatedData<TData> {
   currentPage: number;
 }
 
-export interface PaginatedQueryOptions<TData> extends QueryOptions<PaginatedData<TData>> {
+export interface PaginatedQueryOptions<TData>
+  extends QueryOptions<PaginatedData<TData>> {
   page: number;
   pageSize: number;
   keepPreviousData?: boolean;
@@ -51,8 +52,13 @@ export interface Query<TData> {
   promise?: Promise<TData>;
 }
 
-export interface MutationState<TData, TError = Error, TVariables = unknown, TContext = unknown> {
-  status: 'idle' | 'loading' | 'success' | 'error';
+export interface MutationState<
+  TData,
+  TError = Error,
+  TVariables = unknown,
+  TContext = unknown,
+> {
+  status: "idle" | "loading" | "success" | "error";
   isPending: boolean;
   isSuccess: boolean;
   isError: boolean;
@@ -73,13 +79,21 @@ export interface OperationState<TData, TError, TVariables, TContext> {
 export interface OperationOptions<TData, TError, TVariables, TContext> {
   mutationFn: (variables: TVariables) => Promise<TData>;
   onMutate?: (variables: TVariables) => Promise<TContext>;
-  onSuccess?: (data: TData, variables: TVariables, context: TContext | undefined) => Promise<void>;
-  onError?: (error: TError, variables: TVariables, context: TContext | undefined) => Promise<void>;
+  onSuccess?: (
+    data: TData,
+    variables: TVariables,
+    context: TContext | undefined,
+  ) => Promise<void>;
+  onError?: (
+    error: TError,
+    variables: TVariables,
+    context: TContext | undefined,
+  ) => Promise<void>;
   onSettled?: (
     data: TData | undefined,
     error: TError | null,
     variables: TVariables,
-    context: TContext | undefined
+    context: TContext | undefined,
   ) => Promise<void>;
 }
 
@@ -91,11 +105,29 @@ export interface DataFetchOptions<T> {
   networkMode?: NetworkMode;
 }
 
-export interface MutationOptions<TData, TError = Error, TVariables = unknown, TContext = unknown> {
+export interface MutationOptions<
+  TData,
+  TError = Error,
+  TVariables = unknown,
+  TContext = unknown,
+> {
   mutationFn: (variables: TVariables) => Promise<TData>;
   onMutate?: (variables: TVariables) => Promise<TContext>;
-  onSuccess?: (data: TData, variables: TVariables, context: TContext) => Promise<void>;
-  onError?: (error: TError, variables: TVariables, context: TContext) => Promise<void>;
-  onSettled?: (data: TData | undefined, error: TError | null, variables: TVariables, context: TContext) => Promise<void>;
+  onSuccess?: (
+    data: TData,
+    variables: TVariables,
+    context: TContext,
+  ) => Promise<void>;
+  onError?: (
+    error: TError,
+    variables: TVariables,
+    context: TContext,
+  ) => Promise<void>;
+  onSettled?: (
+    data: TData | undefined,
+    error: TError | null,
+    variables: TVariables,
+    context: TContext,
+  ) => Promise<void>;
   retry?: boolean | number;
-} 
+}

@@ -1,6 +1,11 @@
-import { MutationOptions, MutationState } from './types';
+import { MutationOptions, MutationState } from "./types";
 
-export class MutationObserver<TData, TError = Error, TVariables = unknown, TContext = unknown> {
+export class MutationObserver<
+  TData,
+  TError = Error,
+  TVariables = unknown,
+  TContext = unknown,
+> {
   private state: MutationState<TData, TError, TVariables, TContext>;
   private options: MutationOptions<TData, TError, TVariables, TContext>;
   private retryCount: number = 0;
@@ -8,7 +13,7 @@ export class MutationObserver<TData, TError = Error, TVariables = unknown, TCont
   constructor(options: MutationOptions<TData, TError, TVariables, TContext>) {
     this.options = options;
     this.state = {
-      status: 'idle',
+      status: "idle",
       isPending: false,
       isSuccess: false,
       isError: false,
@@ -16,7 +21,9 @@ export class MutationObserver<TData, TError = Error, TVariables = unknown, TCont
     };
   }
 
-  private setState(updates: Partial<MutationState<TData, TError, TVariables, TContext>>) {
+  private setState(
+    updates: Partial<MutationState<TData, TError, TVariables, TContext>>,
+  ) {
     this.state = { ...this.state, ...updates };
   }
 
@@ -24,13 +31,13 @@ export class MutationObserver<TData, TError = Error, TVariables = unknown, TCont
     const retry = this.options.retry;
     if (retry === false) return false;
     if (retry === true) return true;
-    if (typeof retry === 'number') return this.retryCount < retry;
+    if (typeof retry === "number") return this.retryCount < retry;
     return false;
   }
 
   async reset(): Promise<void> {
     this.setState({
-      status: 'idle',
+      status: "idle",
       isPending: false,
       isSuccess: false,
       isError: false,
@@ -43,7 +50,7 @@ export class MutationObserver<TData, TError = Error, TVariables = unknown, TCont
 
   async mutate(variables: TVariables): Promise<TData> {
     this.setState({
-      status: 'loading',
+      status: "loading",
       isPending: true,
       variables,
     });
@@ -59,7 +66,7 @@ export class MutationObserver<TData, TError = Error, TVariables = unknown, TCont
       const data = await this.options.mutationFn(variables);
 
       this.setState({
-        status: 'success',
+        status: "success",
         data,
         isPending: false,
         isSuccess: true,
@@ -70,7 +77,12 @@ export class MutationObserver<TData, TError = Error, TVariables = unknown, TCont
       }
 
       if (this.options.onSettled) {
-        await this.options.onSettled(data, null, variables, context as TContext);
+        await this.options.onSettled(
+          data,
+          null,
+          variables,
+          context as TContext,
+        );
       }
 
       return data;
@@ -83,7 +95,7 @@ export class MutationObserver<TData, TError = Error, TVariables = unknown, TCont
       }
 
       this.setState({
-        status: 'error',
+        status: "error",
         error: typedError,
         isPending: false,
         isError: true,
@@ -94,7 +106,12 @@ export class MutationObserver<TData, TError = Error, TVariables = unknown, TCont
       }
 
       if (this.options.onSettled) {
-        await this.options.onSettled(undefined, typedError, variables, context as TContext);
+        await this.options.onSettled(
+          undefined,
+          typedError,
+          variables,
+          context as TContext,
+        );
       }
 
       throw error;
@@ -108,4 +125,4 @@ export class MutationObserver<TData, TError = Error, TVariables = unknown, TCont
   getState(): MutationState<TData, TError, TVariables, TContext> {
     return this.state;
   }
-} 
+}

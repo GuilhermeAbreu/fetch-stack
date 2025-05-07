@@ -1,9 +1,7 @@
 // Configuração global para os testes
-beforeAll(() => {
-});
+beforeAll(() => {});
 
-afterAll(() => {
-});
+afterAll(() => {});
 
 // Extende o timeout padrão para 10 segundos
-jest.setTimeout(10000); 
+jest.setTimeout(10000);

@@ -1,4 +1,4 @@
-import { Query, QueryOptions } from './types';
+import { Query, QueryOptions } from "./types";
 
 export class DataManager {
   private cache: Map<string, any>;
@@ -9,7 +9,11 @@ export class DataManager {
     this.queries = new Map();
   }
 
-  async fetchData<T>(key: string, queryFn: () => Promise<T>, options?: Partial<QueryOptions<T>>): Promise<T> {
+  async fetchData<T>(
+    key: string,
+    queryFn: () => Promise<T>,
+    options?: Partial<QueryOptions<T>>,
+  ): Promise<T> {
     if (this.queries.has(key)) {
       const existingQuery = this.queries.get(key)!;
       if (existingQuery.promise) {
@@ -20,7 +24,7 @@ export class DataManager {
     const queryOptions: QueryOptions<T> = {
       queryKey: key,
       queryFn: () => queryFn(),
-      ...options
+      ...options,
     };
 
     const promise = queryFn();
@@ -29,15 +33,15 @@ export class DataManager {
       state: {
         data: undefined,
         error: null,
-        status: 'loading',
+        status: "loading",
         isFetching: true,
-        fetchStatus: 'fetching',
+        fetchStatus: "fetching",
         isPaused: false,
         lastUpdated: Date.now(),
-        isPlaceholderData: false
+        isPlaceholderData: false,
       },
       options: queryOptions,
-      promise
+      promise,
     };
 
     this.queries.set(key, query);
