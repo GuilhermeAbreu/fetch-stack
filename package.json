@@ -9,7 +9,9 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "npm run build:lib && npm run build:examples",
+    "build:lib": "tsc",
+    "build:examples": "tsc -p tsconfig.examples.json",
     "build:watch": "tsc -w",
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
@@ -19,7 +21,7 @@
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "format": "prettier --write \"src/**/*.ts\"",
-    "prepare": "npm run build",
+    "prepare": "npm run build:lib",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
@@ -27,7 +29,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/guilhermeabreudev/fetch-stack.git"
+    "url": "git+https://github.com/GuilhermeAbreu/fetch-stack.git"
   },
   "keywords": [
     "state-management",
@@ -39,9 +41,9 @@
   "author": "Guilherme Abreu",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/guilhermeabreudev/fetch-stack/issues"
+    "url": "https://github.com/GuilhermeAbreu/fetch-stack/issues"
   },
-  "homepage": "https://github.com/guilhermeabreudev/fetch-stack#readme",
+  "homepage": "https://github.com/GuilhermeAbreu/fetch-stack#readme",
   "devDependencies": {
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.24",

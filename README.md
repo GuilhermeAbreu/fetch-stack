@@ -78,9 +78,9 @@ Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICE
 
 ## 📫 Contato
 
-Guilherme Abreu - [@guilhermeabreudev](https://github.com/guilhermeabreudev)
+Guilherme Abreu - [@guilhermeabreudev](https://github.com/GuilhermeAbreu)
 
-Link do Projeto: [https://github.com/guilhermeabreudev/fetch-stack](https://github.com/guilhermeabreudev/fetch-stack)
+Link do Projeto: [https://github.com/GuilhermeAbreu/fetch-stack](https://github.com/GuilhermeAbreu/fetch-stack)
 
 ## 🙏 Agradecimentos
 
