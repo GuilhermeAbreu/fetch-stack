@@ -53,7 +53,7 @@ async function main() {
     // Criar mutation para adicionar um novo todo
     const addTodoMutation = new MutationObserver({
       mutationFn: createTodo,
-      onSuccess: (newTodo) => {
+      onSuccess: async (newTodo) => {
         console.log('\nTodo criado com sucesso!');
         console.log('Invalidando queries relacionadas...');
         

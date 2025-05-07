@@ -2,11 +2,22 @@
   "name": "@guilhermeabreudev/fetch-stack",
   "version": "1.0.1",
   "description": "Uma biblioteca simples e eficiente para gerenciamento de estado e cache de dados, inspirada no React Query",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "build": "npm run build:lib && npm run build:examples",

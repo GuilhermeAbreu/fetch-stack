@@ -32,17 +32,17 @@ async function main() {
   // Criar mutation observer
   const mutation = new MutationObserver({
     mutationFn: createTodo,
-    onMutate: (variables) => {
+    onMutate: async (variables) => {
       console.log('\nPré-processando mutation:', variables);
       return { timestamp: Date.now() };
     },
-    onSuccess: (data, variables, context) => {
+    onSuccess: async (data, variables, context) => {
       console.log('\nMutation bem sucedida!');
       console.log('Dados:', data);
       console.log('Variáveis:', variables);
       console.log('Contexto:', context);
     },
-    onError: (error, variables, context) => {
+    onError: async (error, variables, context) => {
       console.log('\nErro na mutation!');
       console.log('Erro:', error);
       console.log('Variáveis:', variables);

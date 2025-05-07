@@ -7,6 +7,10 @@ interface Todo {
   completed: boolean;
 }
 
+interface OptimisticContext {
+  previousTodos: Todo[];
+}
+
 async function main() {
   const queryClient = new QueryClient();
 
@@ -77,14 +81,14 @@ async function main() {
         // Retornar contexto para possível rollback
         return { previousTodos };
       },
-      onError: (error, variables, context) => {
+      onError: async (error, variables, context) => {
         console.log('\nErro na mutation, fazendo rollback...');
         // Rollback para o estado anterior
         if (context?.previousTodos) {
           queryClient.setQueryData(['todos'], context.previousTodos);
         }
       },
-      onSettled: () => {
+      onSettled: async () => {
         // Invalidar query para garantir dados atualizados
         queryClient.invalidateQueries({ queryKey: ['todos'] });
       }
